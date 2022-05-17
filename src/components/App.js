@@ -31,7 +31,6 @@ export default @observer class App extends Component {
       root: PropTypes.object,
       directories: PropTypes.array,
     }).isRequired,
-    sortClassDeterminator: PropTypes.func,
     searchFilter: PropTypes.func,
     sortItems: PropTypes.func,
   }
@@ -40,7 +39,6 @@ export default @observer class App extends Component {
     const {
       sortStore,
       appStore,
-      sortClassDeterminator,
       searchFilter,
       sortItems,
     } = this.props;
@@ -56,7 +54,6 @@ export default @observer class App extends Component {
             sortStore={sortStore}
             root={appStore.root}
             directories={appStore.directories}
-            sortClassDeterminator={sortClassDeterminator}
             searchFilter={searchFilter}
             sortItems={sortItems}
             basePath={appStore.basePath}

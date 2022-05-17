@@ -26,7 +26,6 @@ export default @observer class IndexView extends Component {
     const {
       node,
       sortStore,
-      sortClassDeterminator,
       searchFilter,
       sortItems,
     } = this.props;
@@ -37,7 +36,6 @@ export default @observer class IndexView extends Component {
       table = (
         <DirectoryListingTable
           items={sortItems(node.children, sortStore.sortBy, sortStore.sortOrder)}
-          headerSortClasses={sortClassDeterminator(sortStore.sortBy, sortStore.sortOrder)}
           changeSort={newSortBy => sortStore.changeSort(newSortBy)}
         />
       );

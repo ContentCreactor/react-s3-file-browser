@@ -12,7 +12,6 @@ export default class DirectoriesRouter extends Component {
       path: PropTypes.string.isRequired,
     }).isRequired).isRequired,
     sortStore: PropTypes.object,
-    sortClassDeterminator: PropTypes.func,
     searchFilter: PropTypes.func,
     sortItems: PropTypes.func,
     basePath: PropTypes.string,
@@ -23,7 +22,6 @@ export default class DirectoriesRouter extends Component {
       root,
       directories,
       sortStore,
-      sortClassDeterminator,
       searchFilter,
       sortItems,
       basePath,
@@ -34,7 +32,6 @@ export default class DirectoriesRouter extends Component {
         <IndexView {...props}
           node={dir}
           sortStore={sortStore}
-          sortClassDeterminator={sortClassDeterminator}
           searchFilter={searchFilter}
           sortItems={sortItems}
         />;
