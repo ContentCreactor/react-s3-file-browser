@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import DirectoriesRouter from './DirectoriesRouter';
-import '../App.css';
-
+import Box from '@mui/material/Box';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { green, purple } from '@mui/material/colors';
+import { keyframes } from '@emotion/react'
 
 const theme = createTheme({
   palette: {
@@ -19,7 +19,14 @@ const theme = createTheme({
   },
 });
 
-
+const loading = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`
 export default @observer class App extends Component {
   static propTypes = {
     sortStore: PropTypes.object,
@@ -44,9 +51,46 @@ export default @observer class App extends Component {
     } = this.props;
 
     if (appStore.isLoading) {
-      return <div className="loading" />;
+      return <Box
+        sx={[
+          {
+            '&::after': {
+              content: '"/"',
+              display: 'block',
+              width: '8em',
+              height: '8em',
+              margin: 'auto',
+              borderRadius: '50%',
+              border: '1.5em solid #000',
+              borderColor: '#000 transparent #000 transparent',
+              animation: `${loading} 1.2s linear infinite`,
+            }
+          },
+          {
+            width: '100%',
+            height: '100%'
+          }]}
+      >{appStore.error}</Box>;
     } else if (appStore.isError) {
-      return <div className="error">{appStore.error}</div>;
+      return <Box
+        sx={[
+          {
+            '&::before': {
+              content: '"⚠"',
+              fontSize: '2em',
+              color: '#f00',
+              fontWeight: 'bold',
+            }
+          },
+          {
+            margin: '0.5em',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.25em',
+            fontWeight: 'bold',
+          }]}
+      >{appStore.error}</Box>;
     } else if (appStore.isLoaded) {
       return (
         <ThemeProvider theme={theme}>
@@ -59,7 +103,6 @@ export default @observer class App extends Component {
             basePath={appStore.basePath}
           />
         </ThemeProvider>
-
       );
     } else {
       throw new Error('unreachable state');

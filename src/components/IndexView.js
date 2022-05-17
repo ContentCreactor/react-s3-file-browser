@@ -5,6 +5,7 @@ import SearchBar from './SearchBar';
 import DirectoryListingTable from './DirectoryListingTable';
 import SearchResultsTable from './SearchResultsTable';
 import PathNavigation from './PathNavigation';
+import Box from '@mui/material/Box';
 
 export default @observer class IndexView extends Component {
   static propTypes = {
@@ -46,7 +47,7 @@ export default @observer class IndexView extends Component {
     const searchNodeName = node.parent ? node.name : null;
 
     return (
-      <div>
+      <Box>
         <PathNavigation node={node} />
         <SearchBar
           searchTerm={searchTerm}
@@ -54,7 +55,7 @@ export default @observer class IndexView extends Component {
           nodeName={searchNodeName}
         />
         {table}
-      </div>
+      </Box>
     );
   }
 

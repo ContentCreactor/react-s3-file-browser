@@ -2,7 +2,6 @@ import { configure } from 'mobx';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AWS from 'aws-sdk';
-import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import * as s3ConfigDeterminator from './services/s3ConfigDeterminator';
