@@ -1,6 +1,7 @@
 import React from 'react';
 import NodeLink from './NodeLink';
 import Box from '@mui/material/Box';
+import styles from './PathNavigation.module.css'
 
 const PathNavigation = ({ node }) => {
   const parentLinks = [];
@@ -12,7 +13,7 @@ const PathNavigation = ({ node }) => {
   } while (currentNode);
 
 
-  return <Box sx={{ padding: '0.5em' }}>{parentLinks}</Box>;
+  return <Box className={styles.link}>{parentLinks}</Box>;
 }
 
 export default PathNavigation 

@@ -1,0 +1,23 @@
+.container {
+  margin: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container::before {
+  content: '⚠';
+  font-size: 2em;
+  color: #f00;
+  font-weight: bold;
+}
+
+.content {
+  display: inline-block;
+  margin: 0.5em;
+}
+
+.text {
+  font-size: 1.25em;
+  font-weight: bold;
+}

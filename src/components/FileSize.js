@@ -1,5 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import styles from './FileSize.module.css';
 
 const SIZE_SUFFIXES = ['B', 'KB', 'MB', 'GB', 'TB'];
 
@@ -20,15 +21,9 @@ const FileSize = ({ size: propsSize }) => {
   const { size, suffix } = displaySize(propsSize);
 
   return (
-    <Box sx={{ float: 'right' }} >
+    <Box className={styles.fileSize}>
       <span>{Math.round(size)}</span>
-      <span
-        sx={{
-          display: 'inline-block',
-          width: '2em',
-          paddingLeft: '0.25em'
-        }}
-      >{suffix}</span>
+      <span className={styles.suffix}>{suffix}</span>
     </Box>
   );
 }

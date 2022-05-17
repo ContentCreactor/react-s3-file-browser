@@ -8,86 +8,46 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import styles from './SearchResultsTable.module.css';
+import clsx from 'clsx';
 
 const SearchResultsTable = ({ items }) => {
-  const rows = items
-    .map(child => {
-      const { node, matchData } = child;
+  const rows = items.map(child => {
+    const { node, matchData } = child;
 
-      return (
-        <TableRow
-          sx={[
-            {
-              '&:hover': {
-                background: '#FFD'
-              }
-            }
-          ]}
-          key={node.key}>
-          <TableCell sx={[
-            {
-              'a:visited': {
-                color: 'blue'
-              },
-              'a:hover': {
-                textDecoration: 'underline'
-              },
-              'a': {
-                textDecoration: 'none'
-              }
-            },
-            {
-              padding: '0.2em',
+    return (
+      <TableRow className={styles.row} key={node.key}>
+        <TableCell className={clsx(styles.cell, styles.cellLink)}>
+          <NodeLink node={node}>
+            <SearchResultTitle matchData={matchData} />
+          </NodeLink>
+        </TableCell>
 
-            }]}>
-            <NodeLink node={node}>
-              <SearchResultTitle matchData={matchData} />
-            </NodeLink>
-          </TableCell>
-          <TableCell sx={{
-            padding: '0.2em'
-          }}>
-            {node.lastModified.toLocaleString()}        </TableCell>
-          <TableCell sx={{
-            padding: '0.2em'
-          }}>
-            <FileSize size={node.size} />
-          </TableCell>
-        </TableRow>
-      );
-    });
+        <TableCell className={styles.cell}>
+          {node.lastModified.toLocaleString()}
+        </TableCell>
+
+        <TableCell className={styles.cell}>
+          <FileSize size={node.size} />
+        </TableCell>
+      </TableRow>
+    );
+  });
 
   return (
-    <Box sx={{ margin: '0.5em' }}>
-      <Table sx={{
-        borderCollapse: 'collapse',
-        width: '100%'
-      }}>
-        <TableHead
-          sx={{
-            background: '#DDD',
-            borderTop: '0.25em'
-          }}
-        >
+    <Box className={styles.container}>
+      <Table className={styles.table}>
+        <TableHead className={styles.head}>
           <TableRow>
-            <TableCell sx={{
-              padding: '0.5em'
-            }}>
+            <TableCell className={styles.name}>
               <span>Name</span>
             </TableCell>
 
-            <TableCell sx={{
-              width: '10em',
-              padding: '0.5em'
-            }}>
+            <TableCell className={styles.lastModified}>
               <span>Last Modified</span>
             </TableCell>
 
-            <TableCell sx={{
-              width: '10em',
-              padding: '0.5em',
-              textAlign: 'end'
-            }}>
+            <TableCell className={styles.size}>
               <span>Size</span>
             </TableCell>
           </TableRow>

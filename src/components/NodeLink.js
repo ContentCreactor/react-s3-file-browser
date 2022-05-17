@@ -15,13 +15,7 @@ const NodeLink = ({
     );
   } else {
     return (
-      <span style={
-        {
-          'a:visited': {
-            color: 'green'
-          }
-        }
-      }>
+      <span>
         <a href={node.url}>{children}</a>
       </span>
     );

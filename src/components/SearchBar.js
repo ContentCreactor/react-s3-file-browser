@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import styles from './SearchBar.module.css';
 
 const SearchBar = ({
   searchTerm,
@@ -10,14 +11,11 @@ const SearchBar = ({
   const placeholder = nodeName ? `Search in ${nodeName}` : 'Search';
 
   return (
-    <Box sx={{ margin: '0.5em' }}>
+    <Box className={styles.container}>
       <TextField
-        sx={{
-          fontSize: '1em',
-          width: '100%'
-        }}
+        className={styles.input}
         id="outlined-basic"
-        label="Outlined"
+        label="Search"
         variant="outlined"
         value={searchTerm}
         onChange={e => onChange(e.target.value)} placeholder={placeholder} />

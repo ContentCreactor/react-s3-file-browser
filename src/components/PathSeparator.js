@@ -1,11 +1,9 @@
 import React from 'react';
+import styles from './PathSeparator.module.css'
 
 const PathSeparator = () => {
   return (
-    <span style={{
-      paddingLeft: '0.25em',
-      paddingRight: '0.25em'
-    }}>
+    <span className={styles.path}>
       /
     </span>
   )
