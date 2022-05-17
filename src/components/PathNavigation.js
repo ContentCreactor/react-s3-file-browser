@@ -1,26 +1,18 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import NodeLink from './NodeLink';
+import Box from '@mui/material/Box';
 
-export default class PathNavigation extends Component {
-  static propTypes = {
-    node: PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      parent: PropTypes.object,
-    }).isRequired,
-  }
+const PathNavigation = ({ node }) => {
+  const parentLinks = [];
+  let currentNode = node;
 
-  render() {
-    const { node } = this.props;
-    const parentLinks = [];
-    var currentNode = node;
+  do {
+    parentLinks.unshift(<NodeLink node={currentNode} key={currentNode.key}>{currentNode.name}</NodeLink>);
+    currentNode = currentNode.parent;
+  } while (currentNode);
 
-    do {
-      parentLinks.unshift(<NodeLink node={currentNode} key={currentNode.key}>{currentNode.name}</NodeLink>);
-      currentNode = currentNode.parent;
-    } while (currentNode);
 
-    return <div className='path-navigation'>{parentLinks}</div>;
-  }
+  return <Box sx={{ padding: '0.5em' }}>{parentLinks}</Box>;
 }
+
+export default PathNavigation 

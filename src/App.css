@@ -92,9 +92,9 @@
   border-top: 0.25em;
 } */
 
-.objects-table thead td {
+/* .objects-table thead td {
   padding: 0.5em;
-}
+} */
 
 /* .objects-table tbody > tr:nth-child(even) {
   background: #EEE;
@@ -104,9 +104,9 @@
   background: #FFD;
 } */
 
-.objects-table tbody td {
+/* .objects-table tbody td {
   padding: 0.2em;
-}
+} */
 /* 
 .objects-table .column_name {
 }
@@ -119,14 +119,14 @@
   width: 15em;
 } */
 
-.path-navigation {
+/* .path-navigation {
   padding: 0.5em;
-}
+} */
 
-.path-separator {
+/* .path-separator {
   padding-left: 0.25em;
   padding-right: 0.25em;
-} */
+}  */
 
 /*
 DONE

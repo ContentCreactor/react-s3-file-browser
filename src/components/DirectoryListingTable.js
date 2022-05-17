@@ -21,9 +21,22 @@ const DirectoryListingTable = ({ items, changeSort }) => {
           }
         ]}
         key={child.key}>
-        <TableCell sx={{
-          padding: '0.2em'
-        }}>
+        <TableCell sx={[
+          {
+            'a:visited': {
+              color: 'blue'
+            },
+            'a:hover': {
+              textDecoration: 'underline'
+            },
+            'a': {
+              textDecoration: 'none'
+            }
+          },
+          {
+            padding: '0.2em',
+
+          }]}>
           <NodeLink node={child}>{child.name}</NodeLink>
         </TableCell>
         <TableCell sx={{
