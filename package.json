@@ -17,6 +17,9 @@
     "sinon": "^9.2.0"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.8.0",
     "aws-sdk": "^2.779.0",
     "classnames": "^2.2.6",
     "mobx": "^6.0.4",
