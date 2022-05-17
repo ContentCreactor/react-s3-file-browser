@@ -78,36 +78,36 @@
   font-weight: bold;
 }
 
-.objects-table {
+/* /* .objects-table {
   margin: 0.5em;
-}
+} */
 
-.objects-table table {
+/* .objects-table table {
   border-collapse: collapse;
   width: 100%;
-}
+} */
 
-.objects-table thead {
+/* .objects-table thead {
   background: #DDD;
   border-top: 0.25em;
-}
+} */
 
 .objects-table thead td {
   padding: 0.5em;
 }
 
-.objects-table tbody > tr:nth-child(even) {
+/* .objects-table tbody > tr:nth-child(even) {
   background: #EEE;
-}
+} */
 
-.objects-table tbody > tr:hover {
+/* .objects-table tbody > tr:hover {
   background: #FFD;
-}
+} */
 
 .objects-table tbody td {
   padding: 0.2em;
 }
-
+/* 
 .objects-table .column_name {
 }
 
@@ -117,7 +117,7 @@
 
 .objects-table .column_size {
   width: 15em;
-}
+} */
 
 .path-navigation {
   padding: 0.5em;
@@ -126,7 +126,7 @@
 .path-separator {
   padding-left: 0.25em;
   padding-right: 0.25em;
-}
+} */
 
 /*
 DONE
