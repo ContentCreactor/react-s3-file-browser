@@ -2,7 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import DirectoriesRouter from './DirectoriesRouter';
-import '../App.css';
+import Box from '@mui/material/Box';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { green, purple } from '@mui/material/colors';
+import styles from './App.module.css';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: purple[500],
+    },
+    secondary: {
+      main: green[500],
+    },
+  },
+});
 
 export default @observer class App extends Component {
   static propTypes = {
@@ -15,7 +30,6 @@ export default @observer class App extends Component {
       root: PropTypes.object,
       directories: PropTypes.array,
     }).isRequired,
-    sortClassDeterminator: PropTypes.func,
     searchFilter: PropTypes.func,
     sortItems: PropTypes.func,
   }
@@ -24,26 +38,28 @@ export default @observer class App extends Component {
     const {
       sortStore,
       appStore,
-      sortClassDeterminator,
       searchFilter,
       sortItems,
     } = this.props;
 
     if (appStore.isLoading) {
-      return <div className="loading" />;
+      return <Box className={styles.loading} />;
     } else if (appStore.isError) {
-      return <div className="error">{appStore.error}</div>;
+      return <Box className={styles.error}>
+        {appStore.error}
+      </Box>;
     } else if (appStore.isLoaded) {
       return (
-        <DirectoriesRouter
-          sortStore={sortStore}
-          root={appStore.root}
-          directories={appStore.directories}
-          sortClassDeterminator={sortClassDeterminator}
-          searchFilter={searchFilter}
-          sortItems={sortItems}
-          basePath={appStore.basePath}
-        />
+        <ThemeProvider theme={theme}>
+          <DirectoriesRouter
+            sortStore={sortStore}
+            root={appStore.root}
+            directories={appStore.directories}
+            searchFilter={searchFilter}
+            sortItems={sortItems}
+            basePath={appStore.basePath}
+          />
+        </ThemeProvider>
       );
     } else {
       throw new Error('unreachable state');

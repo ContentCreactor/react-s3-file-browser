@@ -2,14 +2,12 @@ import { configure } from 'mobx';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AWS from 'aws-sdk';
-import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import * as s3ConfigDeterminator from './services/s3ConfigDeterminator';
 import S3DirectoryListBuilder from './services/S3DirectoryListBuilder';
 import AppStore from './stores/AppStore';
 import SortStore from './stores/SortStore';
-import SortClassDeterminator from './services/SortClassDeterminator';
 import searchFilter from './services/searchFilter';
 import sortItems from './services/sortItems';
 
@@ -22,12 +20,6 @@ configure({
 
 const sortStore = new SortStore('name', 'asc');
 const appStore = new AppStore();
-const sortClassDeterminator = SortClassDeterminator(
-  ['name', 'lastModified', 'size'],
-  'sort-none',
-  'sort-asc',
-  'sort-desc'
-);
 
 async function loadData() {
   try {
@@ -92,7 +84,6 @@ ReactDOM.render(
   <App
     sortStore={sortStore}
     appStore={appStore}
-    sortClassDeterminator={sortClassDeterminator}
     searchFilter={searchFilter}
     sortItems={sortItems}
   />,

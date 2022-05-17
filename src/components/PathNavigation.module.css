@@ -1,0 +1,15 @@
+.link {
+  padding: 0.5em;
+}
+
+.link>a:visited {
+  color: blue;
+}
+
+.link>a:hover {
+  text-decoration: 'underline'
+}
+
+.link>a {
+  text-decoration: 'none'
+}

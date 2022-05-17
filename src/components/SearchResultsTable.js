@@ -1,62 +1,63 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import FileSize from './FileSize';
 import NodeLink from './NodeLink';
 import SearchResultTitle from './SearchResultTitle';
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import styles from './SearchResultsTable.module.css';
+import clsx from 'clsx';
 
-export default class SearchResultsTable extends Component {
-  static propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape({
-      node: PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        lastModified: PropTypes.instanceOf(Date).isRequired,
-        size: PropTypes.number.isRequired,
-      }).isRequired,
-      matchData: PropTypes.array.isRequired,
-    }).isRequired).isRequired
-  }
-
-  render() {
-    const { items } = this.props;
-
-    const rows = items
-    .map(child => {
-      const { node, matchData } = child;
-
-      return (
-        <tr key={node.key}>
-          <td>
-            <NodeLink node={node}>
-              <SearchResultTitle matchData={matchData} />
-            </NodeLink>
-          </td>
-          <td>{node.lastModified.toLocaleString()}</td>
-          <td><FileSize size={node.size} /></td>
-        </tr>
-      );
-    });
+const SearchResultsTable = ({ items }) => {
+  const rows = items.map(child => {
+    const { node, matchData } = child;
 
     return (
-      <div className='objects-table'>
-        <table>
-          <thead>
-            <tr>
-              <td className='column_name'>
-                <span>Name</span>
-              </td>
-              <td className='column_last-modified'>
-                <span>Last Modified</span>
-              </td>
-              <td className='column_size'>
-                <span>Size</span>
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            {rows}
-          </tbody>
-        </table>
-      </div>
+      <TableRow className={styles.row} key={node.key}>
+        <TableCell className={clsx(styles.cell, styles.cellLink)}>
+          <NodeLink node={node}>
+            <SearchResultTitle matchData={matchData} />
+          </NodeLink>
+        </TableCell>
+
+        <TableCell className={styles.cell}>
+          {node.lastModified.toLocaleString()}
+        </TableCell>
+
+        <TableCell className={styles.cell}>
+          <FileSize size={node.size} />
+        </TableCell>
+      </TableRow>
     );
-  }
+  });
+
+  return (
+    <Box className={styles.container}>
+      <Table className={styles.table}>
+        <TableHead className={styles.head}>
+          <TableRow>
+            <TableCell className={styles.name}>
+              <span>Name</span>
+            </TableCell>
+
+            <TableCell className={styles.lastModified}>
+              <span>Last Modified</span>
+            </TableCell>
+
+            <TableCell className={styles.size}>
+              <span>Size</span>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows}
+        </TableBody>
+      </Table>
+    </Box >
+  );
 }
+
+export default SearchResultsTable

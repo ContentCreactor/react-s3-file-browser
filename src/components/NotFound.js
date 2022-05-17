@@ -1,26 +1,20 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import PathNavigation from './PathNavigation';
+import Box from '@mui/material/Box';
+import styles from './NotFound.module.css'
 
-export default class NotFound extends Component {
-  static propTypes = {
-    root: PropTypes.object.isRequired,
-    path: PropTypes.string.isRequired,
-  };
-
-  render() {
-    const { root, path } = this.props;
-
-    return (
-      <div>
-        <PathNavigation node={root} />
-        <div className='not-found'>
-          <div className='content'>
-            <div className='message'>The specified path was not found:</div>
-            <div className='path'>{path}</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+const NotFound = ({ root, path }) => {
+  return (
+    <Box>
+      <PathNavigation node={root} />
+      <Box className={styles.container}>
+        <Box className={styles.content}>
+          <Box className={styles.text}>The specified path was not found:</Box>
+          <Box>{path}</Box>
+        </Box>
+      </Box>
+    </Box >
+  );
 }
+
+export default NotFound

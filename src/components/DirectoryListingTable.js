@@ -1,69 +1,126 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import React from 'react';
 import FileSize from './FileSize';
 import NodeLink from './NodeLink';
+import Box from '@mui/material/Box';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import clsx from 'clsx'
 
-export default class DirectoryListingTable extends Component {
-  static propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      size: PropTypes.number.isRequired,
-    }).isRequired).isRequired,
-    headerSortClasses: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      lastModified: PropTypes.string.isRequired,
-      size: PropTypes.string.isRequired,
-    }).isRequired,
-  }
+import { makeStyles } from '@mui/styles';
 
-  render() {
-    const { items, headerSortClasses, changeSort } = this.props;
+const useStyles = makeStyles({
+  specificCell: {
+    padding: '0.2em'
+  },
 
-    const rows = items.map(child => {
-      return (
-        <tr key={child.key}>
-          <td><NodeLink node={child}>{child.name}</NodeLink></td>
-          <td>{child.lastModified.toLocaleString()}</td>
-          <td><FileSize size={child.size} /></td>
-        </tr>
-      );
-    });
+  container: {
+    margin: '0.5em'
+  },
 
+  table: {
+    borderCollapse: 'collapse',
+    width: '100%'
+  },
+
+  head: {
+    background: '#DDD',
+    borderTop: '0.25em'
+  },
+
+  name: {
+    padding: '0.5em'
+  },
+
+  lastModified: {
+    width: '10em',
+    padding: '0.5em'
+  },
+
+  size: {
+    width: '10em',
+    padding: '0.5em',
+    textAlign: 'end'
+  },
+
+  row: {
+    "&:hover": {
+      background: '#FFD'
+    }
+  },
+
+  cell: {
+    padding: '0.2em'
+  },
+
+  cellLink: {
+    "& a:visited": {
+      color: 'blue'
+    },
+    "& a:hover": {
+      textDecoration: 'underline'
+    },
+    "& a": {
+      textDecoration: 'none'
+    }
+  },
+});
+
+
+const DirectoryListingTable = ({ items, changeSort }) => {
+
+  const classes = useStyles();
+
+  const rows = items.map(child => {
     return (
-      <div className='objects-table'>
-        <table>
-          <thead>
-            <tr>
-              <td className='column_name'>
-                <span>Name</span>
-                <div
-                  className={classNames('sort', headerSortClasses.name)}
-                  onClick={() => changeSort('name')}
-                />
-              </td>
-              <td className='column_last-modified'>
-                <span>Last Modified</span>
-                <div
-                  className={classNames('sort', headerSortClasses.lastModified)}
-                  onClick={() => changeSort('lastModified')}
-                />
-              </td>
-              <td className='column_size'>
-                <span>Size</span>
-                <div
-                  className={classNames('sort', headerSortClasses.size)}
-                  onClick={() => changeSort('size')}
-                />
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            {rows}
-          </tbody>
-        </table>
-      </div>
+      <TableRow className={clsx(classes.row)}
+        key={child.key}>
+        <TableCell className={clsx(classes.specificCell, classes.cellLink)}>
+          <NodeLink node={child}>{child.name}</NodeLink>
+        </TableCell>
+        <TableCell className={classes.specificCell}>
+          {child.lastModified.toLocaleString()}
+        </TableCell>
+        <TableCell className={classes.specificCell}>
+          <FileSize size={child.size} />
+        </TableCell>
+      </TableRow>
     );
-  }
+  });
+
+  return (
+    <Box className={classes.container}>
+      <Table className={classes.table}>
+        <TableHead className={classes.head}>
+          <TableRow>
+            <TableCell className={classes.name}>
+              <TableSortLabel onClick={() => changeSort('name')}>
+                <span>Name</span>
+              </TableSortLabel>
+            </TableCell>
+
+            <TableCell className={classes.lastModified}>
+              <TableSortLabel onClick={() => changeSort('lastModified')}>
+                <span>Last Modified</span>
+              </TableSortLabel>
+            </TableCell>
+
+            <TableCell className={classes.size}>
+              <TableSortLabel onClick={() => changeSort('size')}>
+                <span>Size</span>
+              </TableSortLabel>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows}
+        </TableBody>
+      </Table>
+    </Box >
+  );
 }
+
+export default DirectoryListingTable

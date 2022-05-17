@@ -1,7 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
+import styles from './PathSeparator.module.css'
 
-export default class PathSeparator extends Component {
-  render() {
-    return <span className="path-separator">/</span>;
-  }
+const PathSeparator = () => {
+  return (
+    <span className={styles.path}>
+      /
+    </span>
+  )
 }
+
+export default PathSeparator

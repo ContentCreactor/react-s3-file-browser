@@ -1,30 +1,31 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import Box from '@mui/material/Box';
+import styles from './FileSize.module.css';
 
 const SIZE_SUFFIXES = ['B', 'KB', 'MB', 'GB', 'TB'];
 
-const displaySize = function(size) {
+const displaySize = function (size) {
   let i;
+
   for (i = 0; i < SIZE_SUFFIXES.length - 1; i++) {
-    if (size < 1024) return { size, suffix: SIZE_SUFFIXES[i] };
+    if (size < 1024) {
+      return { size, suffix: SIZE_SUFFIXES[i] };
+    }
     size /= 1024;
   }
 
   return { size, suffix: SIZE_SUFFIXES[i] };
 }
 
-export default class FileSize extends Component {
-  static propTypes = {
-    size: PropTypes.number.isRequired,
-  }
+const FileSize = ({ size: propsSize }) => {
+  const { size, suffix } = displaySize(propsSize);
 
-  render() {
-    let { size, suffix } = displaySize(this.props.size);
-    return(
-      <div className='file-size'>
-        <span className='file-size__number'>{Math.round(size)}</span>
-        <span className='file-size__suffix'>{suffix}</span>
-      </div>
-    );
-  }
+  return (
+    <Box className={styles.fileSize}>
+      <span>{Math.round(size)}</span>
+      <span className={styles.suffix}>{suffix}</span>
+    </Box>
+  );
 }
+
+export default FileSize

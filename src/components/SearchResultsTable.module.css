@@ -1,0 +1,50 @@
+.container {
+  margin: 0.5em;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.head {
+  background: #DDD;
+  border-top: 0.25em;
+}
+
+.name {
+  padding: 0.5em;
+}
+
+.lastModified {
+  width: 10em;
+  padding: 0.5em;
+}
+
+.size {
+  width: 10em;
+  padding: 0.5em;
+  text-align: end;
+}
+
+.row:hover {
+  background: '#FFD'
+}
+
+.cell {
+  padding: 0.2em;
+}
+
+.cellLink>a:visited {
+  color: blue;
+}
+
+
+.cellLink>a:hover {
+  text-decoration: 'underline'
+}
+
+
+.cellLink>a {
+  text-decoration: 'none'
+}

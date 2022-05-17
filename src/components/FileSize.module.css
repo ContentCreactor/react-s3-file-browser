@@ -1,0 +1,9 @@
+.fileSize {
+  float: right;
+}
+
+.suffix {
+  display: inline-block;
+  width: 2em;
+  padding-left: 0.25em;
+}
