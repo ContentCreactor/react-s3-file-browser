@@ -21,6 +21,8 @@
     "babel-preset-react-app": "^10.0.1",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.1",
+    "eslint": "^8.15.0",
+    "eslint-plugin-react": "^7.29.4",
     "fork-ts-checker-webpack-plugin": "^7.2.11",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.0",
@@ -39,7 +41,7 @@
     "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.0",
     "@mui/styles": "^5.8.0",
-    "aws-sdk": "^2.779.0",
+    "aws-sdk": "^2.1138.0",
     "classnames": "^2.2.6",
     "clsx": "^1.1.1",
     "mobx": "^6.5.0",
@@ -51,6 +53,7 @@
   },
   "scripts": {
     "build": "webpack --config config/webpack.prod.js",
+    "lint": "eslint src/",
     "start": "webpack serve --config config/webpack.dev.js"
   },
   "eslintConfig": {

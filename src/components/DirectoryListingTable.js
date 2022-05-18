@@ -11,6 +11,7 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import clsx from 'clsx'
 
 import { makeStyles } from '@mui/styles';
+import { observer } from 'mobx-react';
 
 const useStyles = makeStyles({
   specificCell: {
@@ -70,13 +71,14 @@ const useStyles = makeStyles({
 });
 
 
-const DirectoryListingTable = ({ items, changeSort }) => {
+const DirectoryListingTable = observer(({ node, sortStore, sortItems, changeSort }) => {
 
   const classes = useStyles();
+  const items = sortItems(node.children, sortStore.sortBy, sortStore.sortOrder)
 
   const rows = items.map(child => {
     return (
-      <TableRow className={clsx(classes.row)}
+      <TableRow className={classes.row}
         key={child.key}>
         <TableCell className={clsx(classes.specificCell, classes.cellLink)}>
           <NodeLink node={child}>{child.name}</NodeLink>
@@ -97,25 +99,19 @@ const DirectoryListingTable = ({ items, changeSort }) => {
         <TableHead className={classes.head}>
           <TableRow>
             <TableCell className={classes.name}>
-              <TableSortLabel 
-              //</TableCell>onClick={() => changeSort('name')}
-              >
+              <TableSortLabel onClick={() => changeSort('size')}>
                 <span>Name</span>
               </TableSortLabel>
             </TableCell>
 
             <TableCell className={classes.lastModified}>
-              <TableSortLabel 
-              //</TableCell>onClick={() => changeSort('lastModified')}
-              >
+              <TableSortLabel onClick={() => changeSort('size')}>
                 <span>Last Modified</span>
               </TableSortLabel>
             </TableCell>
 
-            <TableCell className={classes.size}>
-              <TableSortLabel 
-              //onClick={() => changeSort('size')}
-              >
+            <TableCell sx={{ flexDirection: 'row-reverse' }} className={classes.size}>
+              <TableSortLabel onClick={() => changeSort('size')}>
                 <span>Size</span>
               </TableSortLabel>
             </TableCell>
@@ -127,6 +123,6 @@ const DirectoryListingTable = ({ items, changeSort }) => {
       </Table>
     </Box >
   );
-}
+})
 
 export default DirectoryListingTable
