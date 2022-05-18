@@ -97,19 +97,25 @@ const DirectoryListingTable = ({ items, changeSort }) => {
         <TableHead className={classes.head}>
           <TableRow>
             <TableCell className={classes.name}>
-              <TableSortLabel onClick={() => changeSort('name')}>
+              <TableSortLabel 
+              //</TableCell>onClick={() => changeSort('name')}
+              >
                 <span>Name</span>
               </TableSortLabel>
             </TableCell>
 
             <TableCell className={classes.lastModified}>
-              <TableSortLabel onClick={() => changeSort('lastModified')}>
+              <TableSortLabel 
+              //</TableCell>onClick={() => changeSort('lastModified')}
+              >
                 <span>Last Modified</span>
               </TableSortLabel>
             </TableCell>
 
             <TableCell className={classes.size}>
-              <TableSortLabel onClick={() => changeSort('size')}>
+              <TableSortLabel 
+              //onClick={() => changeSort('size')}
+              >
                 <span>Size</span>
               </TableSortLabel>
             </TableCell>

@@ -1,4 +1,4 @@
-import { action, observable, makeObservable } from 'mobx';
+import { action, observable, makeObservable, runInAction } from 'mobx';
 
 export default class SortStore {
   @observable sortBy = null;
@@ -6,9 +6,11 @@ export default class SortStore {
 
   constructor(defaultSortBy, defaultSortOrder) {
     makeObservable(this);
-    this.sortBy = defaultSortBy;
-    this.defaultSortOrder = defaultSortOrder;
-    this.sortOrder = defaultSortOrder;
+    runInAction(() => {
+      this.sortBy = defaultSortBy;
+      this.defaultSortOrder = defaultSortOrder;
+      this.sortOrder = defaultSortOrder;         // <====== We dont have to define an action
+    });
   }
 
   @action changeSort(sortBy) {
