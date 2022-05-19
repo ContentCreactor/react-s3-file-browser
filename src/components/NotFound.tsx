@@ -2,8 +2,14 @@ import React from 'react';
 import PathNavigation from './PathNavigation';
 import Box from '@mui/material/Box';
 import styles from './NotFound.module.css'
+import { Node } from '../types'
 
-const NotFound = ({ root, path }) => {
+interface NotFoundInterface {
+  root: Node,
+  path: string
+}
+
+const NotFound: React.FC<NotFoundInterface> = ({ root, path }) => {
   return (
     <Box>
       <PathNavigation node={root} />

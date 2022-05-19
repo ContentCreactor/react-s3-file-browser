@@ -2,8 +2,13 @@ import React from 'react';
 import NodeLink from './NodeLink';
 import Box from '@mui/material/Box';
 import styles from './PathNavigation.module.css'
+import { Node } from '../types'
 
-const PathNavigation = ({ node }) => {
+interface PathNavigationInterface {
+  node: Node,
+}
+
+const PathNavigation: React.FC<PathNavigationInterface> = ({ node }) => {
   const parentLinks = [];
   let currentNode = node;
 
@@ -16,4 +21,4 @@ const PathNavigation = ({ node }) => {
   return <Box className={styles.link}>{parentLinks}</Box>;
 }
 
-export default PathNavigation 
+export default PathNavigation

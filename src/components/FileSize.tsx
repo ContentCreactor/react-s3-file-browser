@@ -4,7 +4,7 @@ import styles from './FileSize.module.css';
 
 const SIZE_SUFFIXES = ['B', 'KB', 'MB', 'GB', 'TB'];
 
-const displaySize = function (size) {
+const displaySize = (size: number) => {
   let i;
 
   for (i = 0; i < SIZE_SUFFIXES.length - 1; i++) {
@@ -17,7 +17,11 @@ const displaySize = function (size) {
   return { size, suffix: SIZE_SUFFIXES[i] };
 }
 
-const FileSize = ({ size: propsSize }) => {
+interface FileSizeInterface {
+  size: number
+}
+
+const FileSize: React.FC<FileSizeInterface> = ({ size: propsSize }) => {
   const { size, suffix } = displaySize(propsSize);
 
   return (

@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PathSeparator from './PathSeparator';
+import { Node } from '../types'
 
-const NodeLink = ({
+interface NodeLinkInterface {
+  node: Node,
+  children: React.ReactNode
+}
+
+const NodeLink: React.FC<NodeLinkInterface> = ({
   node,
   children,
 }) => {

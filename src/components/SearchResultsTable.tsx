@@ -1,17 +1,17 @@
 import React from 'react';
 import FileSize from './FileSize';
 import NodeLink from './NodeLink';
+import SearchResultTitle from './SearchResultTitle';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import clsx from 'clsx'
+import clsx from 'clsx';
+import {Node} from '../types'
 
 import { makeStyles } from '@mui/styles';
-import { observer } from 'mobx-react';
 
 const useStyles = makeStyles({
   specificCell: {
@@ -70,24 +70,33 @@ const useStyles = makeStyles({
   },
 });
 
+interface SearchResultsTableInterface {
+  items: {
+    node: Node,
+    matchData: { match: boolean, fragment: string }[][]
+  }[]
+}
 
-const DirectoryListingTable = observer(({ node, sortStore, sortItems, changeSort }) => {
-
+const SearchResultsTable: React.FC<SearchResultsTableInterface> = ({ items }) => {
   const classes = useStyles();
-  const items = sortItems(node.children, sortStore.sortBy, sortStore.sortOrder)
 
   const rows = items.map(child => {
+    const { node, matchData } = child;
+
     return (
-      <TableRow className={classes.row}
-        key={child.key}>
+      <TableRow className={classes.row} key={node.key}>
         <TableCell className={clsx(classes.specificCell, classes.cellLink)}>
-          <NodeLink node={child}>{child.name}</NodeLink>
+          <NodeLink node={node}>
+            <SearchResultTitle matchData={matchData} />
+          </NodeLink>
         </TableCell>
+
         <TableCell className={classes.specificCell}>
-          {child.lastModified.toLocaleString()}
+          {node.lastModified.toLocaleString()}
         </TableCell>
+
         <TableCell className={classes.specificCell}>
-          <FileSize size={child.size} />
+          <FileSize size={node.size} />
         </TableCell>
       </TableRow>
     );
@@ -99,21 +108,15 @@ const DirectoryListingTable = observer(({ node, sortStore, sortItems, changeSort
         <TableHead className={classes.head}>
           <TableRow>
             <TableCell className={classes.name}>
-              <TableSortLabel onClick={() => changeSort('size')}>
-                <span>Name</span>
-              </TableSortLabel>
+              <span>Name</span>
             </TableCell>
 
             <TableCell className={classes.lastModified}>
-              <TableSortLabel onClick={() => changeSort('size')}>
-                <span>Last Modified</span>
-              </TableSortLabel>
+              <span>Last Modified</span>
             </TableCell>
 
-            <TableCell sx={{ flexDirection: 'row-reverse' }} className={classes.size}>
-              <TableSortLabel onClick={() => changeSort('size')}>
-                <span>Size</span>
-              </TableSortLabel>
+            <TableCell className={classes.size}>
+              <span>Size</span>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -123,6 +126,6 @@ const DirectoryListingTable = observer(({ node, sortStore, sortItems, changeSort
       </Table>
     </Box >
   );
-})
+}
 
-export default DirectoryListingTable
+export default SearchResultsTable
