@@ -9,6 +9,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import clsx from 'clsx';
+import {Node} from '../types'
 
 import { makeStyles } from '@mui/styles';
 
@@ -69,8 +70,14 @@ const useStyles = makeStyles({
   },
 });
 
+interface SearchResultsTableInterface {
+  items: {
+    node: Node,
+    matchData: { match: boolean, fragment: string }[][]
+  }[]
+}
 
-const SearchResultsTable = ({ items }) => {
+const SearchResultsTable: React.FC<SearchResultsTableInterface> = ({ items }) => {
   const classes = useStyles();
 
   const rows = items.map(child => {

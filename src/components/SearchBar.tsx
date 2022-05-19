@@ -3,7 +3,13 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import styles from './SearchBar.module.css';
 
-const SearchBar = ({
+interface SearchResultsTableInterface {
+  searchTerm: string,
+  nodeName: string
+  onChange: (value: string) => void
+}
+
+const SearchBar: React.FC<SearchResultsTableInterface> = ({
   searchTerm,
   nodeName,
   onChange,

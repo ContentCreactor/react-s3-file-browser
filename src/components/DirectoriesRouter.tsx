@@ -2,9 +2,19 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import IndexView from './IndexView';
 import NotFound from './NotFound';
+import { Node } from '../types'
+import SortStore from 'src/stores/SortStore';
 
+interface DirectoriesRouterInterface {
+  root: Node,
+  directories: any,
+  sortStore: SortStore,
+  searchFilter: (searchTerm: string, node: Node) => any,
+  sortItems:  (items: Node[], by: string, order: string) => () => any,
+  basePath: string,
+}
 
-const DirectoriesRouter = ({
+const DirectoriesRouter: React.FC<DirectoriesRouterInterface> = ({
   root,
   directories,
   sortStore,
@@ -14,8 +24,8 @@ const DirectoriesRouter = ({
 }) => {
   {
 
-    const dirRoutes = directories.map(dir => {
-      const render = props =>
+    const dirRoutes = directories.map((dir: any) => {
+      const render = (props: any) =>
         <IndexView {...props}
           node={dir}
           sortStore={sortStore}

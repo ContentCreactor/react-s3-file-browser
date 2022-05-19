@@ -4,9 +4,17 @@ import DirectoryListingTable from './DirectoryListingTable';
 import SearchResultsTable from './SearchResultsTable';
 import PathNavigation from './PathNavigation';
 import Box from '@mui/material/Box';
+import { Node } from '../types'
+import SortStore from 'src/stores/SortStore';
 
+interface IndexViewInterface {
+  node: Node
+  sortStore: SortStore,
+  searchFilter: (searchTerm: string, node: Node) => any,
+  sortItems: (items: Node[], by: string, order: string) => () => any,
+}
 
-const IndexView = ({
+const IndexView: React.FC<IndexViewInterface> = ({
   node,
   sortStore,
   searchFilter,
@@ -22,7 +30,7 @@ const IndexView = ({
         node={node}
         sortStore={sortStore}
         sortItems={sortItems}
-        changeSort={newSortBy => sortStore.changeSort(newSortBy)}
+        changeSort={(newSortBy: any) => sortStore.changeSort(newSortBy)}
       />
     );
   } else {

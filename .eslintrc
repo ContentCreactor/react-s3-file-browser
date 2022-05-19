@@ -22,6 +22,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "eslint no-process-env": "off"
+        "eol-last": ["error", "always"],
+        "no-trailing-spaces": "error"
     }
 }

@@ -1,8 +1,13 @@
 import React from 'react';
+import { MatchData } from '../types'
 
-const SearchResultTitle = ({ matchData }) => {
-  var first = true;
-  var i = 0;
+interface SearchResultTitleInterface {
+  matchData: MatchData[][]
+}
+
+const SearchResultTitle: React.FC<SearchResultTitleInterface> = ({ matchData }) => {
+  let first = true;
+  let i = 0;
 
   const path = matchData.map(parts => {
     const result = [];
@@ -21,4 +26,4 @@ const SearchResultTitle = ({ matchData }) => {
 
   return <span>{path}</span>;
 }
-export default SearchResultTitle 
+export default SearchResultTitle
