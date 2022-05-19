@@ -59,19 +59,10 @@
     "lint": "eslint src/",
     "start": "webpack serve --config config/webpack.dev.js"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "babel": {},
-  "jest": {
-    "setupFilesAfterEnv": [
-      "./node_modules/jest-enzyme/lib/index.js"
-    ]
-  }
+  ]
 }
