@@ -30,7 +30,7 @@ async function loadData() {
     //     const s3 = new AWS.S3({ params: { Bucket: bucketName }, s3ForcePathStyle: forcePathStyle });
     //     const data = await s3.makeUnauthenticatedRequest('listObjectsV2').promise();
     //     contents = data.Contents;
-    // } else 
+    // } else
     // if (process.env.NODE_ENV !== 'production') {
     const splitPath = window.location.pathname.split('/');
     if (splitPath.length > 2 && splitPath[1] === 'generic') {

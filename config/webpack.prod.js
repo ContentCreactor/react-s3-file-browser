@@ -1,6 +1,7 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const { default: merge } = require("webpack-merge")
 const common = require("./webpack.common")
+const webpack = require('webpack')
 
 const prodConfig = {
   mode: "production",
@@ -13,7 +14,10 @@ const prodConfig = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: "./dist/styles/[name].css"
-    })
+    }),
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify('production'),
+  }),
   ],
   module: {
     rules: [
