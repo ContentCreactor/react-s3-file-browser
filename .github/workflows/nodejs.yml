@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: yarn install
     - name: Create production build
-      run: yarn build --if-present
+      run: yarn build
     - name: Save build as artifact
       uses: actions/upload-artifact@v1
       with:
