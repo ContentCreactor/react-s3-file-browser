@@ -8,6 +8,8 @@ import AppStore from './stores/AppStore';
 import SortStore from './stores/SortStore';
 import searchFilter from './services/searchFilter';
 import sortItems from './services/sortItems';
+import axios from 'axios';
+import { API_URL } from './config';
 
 configure({
   enforceActions: 'always',
@@ -19,7 +21,7 @@ configure({
 const sortStore = new SortStore('name', 'asc');
 const appStore = new AppStore();
 
-async function loadData() {
+const loadData = async () => {
   try {
     let bucketName, objectUrlBase, basePath, contents;
 
@@ -27,19 +29,14 @@ async function loadData() {
     bucketName = 'example-bucket';
     objectUrlBase = `https://${bucketName}.s3.amazonaws.com`;
     basePath = '/';
-    const data = [
-      { Key: 'foo1.file', Size: 1, LastModified: new Date('2000-01-01 00:00:00 +0000') },
-      { Key: 'foo2/bar1.file', Size: 2, LastModified: new Date('2000-01-01 00:00:01 +0000') },
-      { Key: 'foo2/bar2/baz1.file', Size: 3, LastModified: new Date('2000-01-01 00:00:02 +0000') },
-      { Key: 'foo2/bar2/baz2.file', Size: 4, LastModified: new Date('2000-01-01 00:00:00 +0000') },
-      { Key: 'foo2/bar3/baz3.file', Size: 5, LastModified: new Date('2000-01-01 00:00:01 +0000') },
-    ];
-    contents = await new Promise((resolve, reject) => setTimeout(() => resolve(data), 500));
 
+    const response = await axios.get(API_URL)
+
+    console.log('got data from api', response.data)
 
     const treeBuilder = S3DirectoryListBuilder(bucketName, objectUrlBase);
 
-    const { root, directories } = treeBuilder(contents);
+    const { root, directories } = treeBuilder(response.data);
 
     appStore.onLoaded({ root, directories, basePath });
   } catch (error) {

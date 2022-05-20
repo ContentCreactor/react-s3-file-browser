@@ -17,7 +17,7 @@ const prodConfig = {
     }),
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify('production'),
-  }),
+    }),
   ],
   module: {
     rules: [
