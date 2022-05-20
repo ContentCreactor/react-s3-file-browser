@@ -19,7 +19,7 @@ const devConfig = {
         new ReactRefreshWebpackPlugin(),
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify('development'),
-        })
+        }),
     ],
     devtool: "eval-source-map",
     module: {

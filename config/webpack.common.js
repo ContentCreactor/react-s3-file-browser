@@ -2,6 +2,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
 const path = require("path")
+const webpack = require('webpack')
 
 module.exports = {
     entry: "./src/index.js",
@@ -77,6 +78,9 @@ module.exports = {
     },
     plugins: [
         // new ForkTsCheckerWebpackPlugin(),
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: "./public/index.html",
