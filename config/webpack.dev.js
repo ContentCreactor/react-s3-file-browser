@@ -8,11 +8,10 @@ const devConfig = {
     mode: "development",
     devServer: {
         port: 3000,
-        static: {
-            directory: './dist',
-        },
         hot: true,
-        historyApiFallback: true
+        historyApiFallback: {
+            disableDotRule: true,
+        }
     },
     target: "web",
     plugins: [
