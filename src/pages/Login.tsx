@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 interface LoginInterface {
-    closeDialog: () => void
+    closeDialog: (user?: string) => void
     open: boolean
 }
 
@@ -42,18 +42,18 @@ const LoginDialog: React.FC<LoginInterface> = ({ closeDialog, open }) => {
             const response = await axios.post(`${API_URL}/login`, {
                 username,
                 password
-            })
+            }, { withCredentials: true })
 
             console.log(response.data);
-            closeDialog();
+            closeDialog(response.data.username);
         } catch (e) {
-            console.log('error logging in')
+            console.log('error logging in without creds')
         }
 
     };
 
     return (
-        <Dialog onClose={closeDialog} open={open}>
+        <Dialog onClose={() => closeDialog()} open={open}>
 
             <form className={classes.root} onSubmit={handleSubmit}>
                 <TextField
@@ -72,7 +72,7 @@ const LoginDialog: React.FC<LoginInterface> = ({ closeDialog, open }) => {
                     onChange={e => setPassword(e.target.value)}
                 />
                 <div>
-                    <Button variant="contained" onClick={closeDialog}>
+                    <Button variant="contained" onClick={() => closeDialog()}>
                         Cancel
                     </Button>
                     <Button type="submit" variant="contained" color="primary">

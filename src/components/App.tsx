@@ -32,6 +32,7 @@ interface AppInterface {
   appStore: AppStore,
   searchFilter: (searchTerm: string, node: Node) => Node[],
   sortItems: (items: Node[], by: string, order: string) => () => any,
+  user?: string
 }
 
 const App: React.FC<AppInterface> = observer(({
@@ -39,10 +40,18 @@ const App: React.FC<AppInterface> = observer(({
   appStore,
   searchFilter,
   sortItems,
+  user,
 }) => {
 
   const [loginOpen, setLoginOpen] = useState(false)
   const [registerOpen, setRegisterOpen] = useState(false)
+  const [username, setUsername] = useState<string | undefined>(user)
+
+
+  const closeLoginAndSetUsername = (user?: string) => {
+    setLoginOpen(false)
+    setUsername(user)
+  }
 
   if (appStore.isLoading) {
     return <Box className={styles.loading} />;
@@ -53,7 +62,7 @@ const App: React.FC<AppInterface> = observer(({
   } else if (appStore.isLoaded) {
     return (
       <ThemeProvider theme={theme}>
-        <Header openLogin={() => setLoginOpen(true)} openRegister={() => setRegisterOpen(true)} />
+        <Header username={username} openLogin={() => setLoginOpen(true)} openRegister={() => setRegisterOpen(true)} />
         <DirectoriesRouter
           sortStore={sortStore}
           root={appStore.root as any}
@@ -62,7 +71,7 @@ const App: React.FC<AppInterface> = observer(({
           sortItems={sortItems}
           basePath={appStore.basePath ?? ''}
         />
-        <LoginDialog open={loginOpen} closeDialog={() => setLoginOpen(false)} />
+        <LoginDialog open={loginOpen} closeDialog={closeLoginAndSetUsername} />
         <RegisterDialog open={registerOpen} closeDialog={() => setRegisterOpen(false)} />
       </ThemeProvider>
     );

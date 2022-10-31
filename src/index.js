@@ -23,6 +23,15 @@ const appStore = new AppStore();
 
 const loadData = async () => {
   try {
+
+
+
+    //  const asd =  browser.cookies.getAll()
+
+    //   console.log('gookie is', asd)
+
+
+
     let bucketName, objectUrlBase, basePath, contents;
 
     console.log('using fake s3 data');
@@ -30,7 +39,19 @@ const loadData = async () => {
     objectUrlBase = `https://${bucketName}.s3.amazonaws.com`;
     basePath = '/';
 
-    const response = await axios.get(API_URL)
+   // const response = await axios.get('http://localhost:8080/', { withCredentials: true })
+
+    const response = {
+      data: [
+        { Key: 'foo1.file', Size: 1, LastModified: new Date('2000-01-01 00:00:00 +0000') },
+        { Key: 'foo2/bar1.file', Size: 2, LastModified: new Date('2000-01-01 00:00:01 +0000') },
+        { Key: 'foo2/bar2/baz1.file', Size: 3, LastModified: new Date('2000-01-01 00:00:02 +0000') },
+        { Key: 'foo2/bar2/baz2.file', Size: 4, LastModified: new Date('2000-01-01 00:00:00 +0000') },
+        { Key: 'foo2/bar3/baz3.file', Size: 5, LastModified: new Date('2000-01-01 00:00:01 +0000') },
+      ]
+    };
+
+
 
     console.log('got data from api', response.data)
 
@@ -39,6 +60,14 @@ const loadData = async () => {
     const { root, directories } = treeBuilder(response.data);
 
     appStore.onLoaded({ root, directories, basePath });
+
+    // try {
+    //   const aute = await axios.get(`${API_URL}/auth`, { withCredentials: true })
+    //   return aute.data.username
+
+    // } catch (e) {
+    //   return ''
+    // }
   } catch (error) {
     console.error(error);
     if (error instanceof s3ConfigDeterminator.CannotDetermineBucket) {
@@ -50,14 +79,17 @@ const loadData = async () => {
 }
 
 
-loadData();
+const user = loadData().then(res => {
+  ReactDOM.render(
+    <App
+      sortStore={sortStore}
+      appStore={appStore}
+      searchFilter={searchFilter}
+      sortItems={sortItems}
+      user={res}
+    />,
+    document.getElementById('root')
+  );
 
-ReactDOM.render(
-  <App
-    sortStore={sortStore}
-    appStore={appStore}
-    searchFilter={searchFilter}
-    sortItems={sortItems}
-  />,
-  document.getElementById('root')
-);
+});
+

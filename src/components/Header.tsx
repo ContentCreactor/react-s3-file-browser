@@ -4,17 +4,28 @@ import React from 'react'
 interface HeaderInterface {
     openLogin: () => void
     openRegister: () => void
+    username?: string
 }
 
-const Header: React.FC<HeaderInterface> = ({ openLogin, openRegister }) => {
+const Header: React.FC<HeaderInterface> = ({ openLogin, openRegister, username }) => {
     return (
+
         <Box display="flex" justifyContent="flex-end">
-            <Button onClick={openLogin}>
-                Login
-            </Button>
-            <Button onClick={openRegister}>
-                Register
-            </Button>
+            {
+                username ?
+                    username
+                    :
+                    (
+                        <>
+                            <Button onClick={openLogin}>
+                                Login
+                            </Button>
+                            <Button onClick={openRegister}>
+                                Register
+                            </Button>
+                        </>
+                    )
+            }
         </Box>
     )
 }
