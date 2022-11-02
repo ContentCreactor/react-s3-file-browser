@@ -28,6 +28,7 @@
     "fork-ts-checker-webpack-plugin": "^7.2.11",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.0",
+    "process": "^0.11.10",
     "react-refresh": "^0.13.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.3.0",
@@ -44,6 +45,7 @@
     "@mui/icons-material": "^5.8.0",
     "@mui/material": "^5.8.0",
     "@mui/styles": "^5.8.0",
+    "axios": "^0.27.2",
     "classnames": "^2.2.6",
     "clsx": "^1.1.1",
     "mobx": "^6.5.0",
@@ -56,7 +58,8 @@
   "scripts": {
     "build": "NODE_ENV=production webpack --config config/webpack.prod.js",
     "lint": "eslint src/",
-    "start": "NODE_ENV=development webpack serve --config config/webpack.dev.js"
+    "start-old": "NODE_ENV=development webpack serve --config config/webpack.dev.js",
+    "start": "NODE_ENV=development webpack --config config/webpack.dev.js --watch"
   },
   "browserslist": [
     ">0.2%",

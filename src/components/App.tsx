@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react';
 import DirectoriesRouter from './DirectoriesRouter';
 import Box from '@mui/material/Box';
@@ -9,7 +9,12 @@ import styles from './App.module.css';
 import AppStore from 'src/stores/AppStore';
 import SortStore from 'src/stores/SortStore';
 
-import {Node} from '../types'
+import { Node } from '../types'
+import Header from './Header';
+import LoginDialog from '../pages/Login';
+import RegisterDialog from '../pages/Register';
+
+
 
 const theme = createTheme({
   palette: {
@@ -27,6 +32,7 @@ interface AppInterface {
   appStore: AppStore,
   searchFilter: (searchTerm: string, node: Node) => Node[],
   sortItems: (items: Node[], by: string, order: string) => () => any,
+  user?: string
 }
 
 const App: React.FC<AppInterface> = observer(({
@@ -34,7 +40,19 @@ const App: React.FC<AppInterface> = observer(({
   appStore,
   searchFilter,
   sortItems,
+  user,
 }) => {
+
+  const [loginOpen, setLoginOpen] = useState(false)
+  const [registerOpen, setRegisterOpen] = useState(false)
+  const [username, setUsername] = useState<string | undefined>(user)
+
+
+  const closeLoginAndSetUsername = (user?: string) => {
+    setLoginOpen(false)
+    setUsername(user)
+  }
+
   if (appStore.isLoading) {
     return <Box className={styles.loading} />;
   } else if (appStore.isError) {
@@ -44,6 +62,7 @@ const App: React.FC<AppInterface> = observer(({
   } else if (appStore.isLoaded) {
     return (
       <ThemeProvider theme={theme}>
+        <Header username={username} openLogin={() => setLoginOpen(true)} openRegister={() => setRegisterOpen(true)} />
         <DirectoriesRouter
           sortStore={sortStore}
           root={appStore.root as any}
@@ -52,6 +71,8 @@ const App: React.FC<AppInterface> = observer(({
           sortItems={sortItems}
           basePath={appStore.basePath ?? ''}
         />
+        <LoginDialog open={loginOpen} closeDialog={closeLoginAndSetUsername} />
+        <RegisterDialog open={registerOpen} closeDialog={() => setRegisterOpen(false)} />
       </ThemeProvider>
     );
   } else {
