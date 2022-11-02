@@ -58,7 +58,8 @@
   "scripts": {
     "build": "NODE_ENV=production webpack --config config/webpack.prod.js",
     "lint": "eslint src/",
-    "start": "NODE_ENV=development webpack serve --config config/webpack.dev.js"
+    "start-old": "NODE_ENV=development webpack serve --config config/webpack.dev.js",
+    "start": "NODE_ENV=development webpack --config config/webpack.dev.js --watch"
   },
   "browserslist": [
     ">0.2%",

@@ -6,21 +6,22 @@ const webpack = require('webpack')
 
 const devConfig = {
     mode: "development",
-    devServer: {
-        port: 3000,
-        hot: true,
-        historyApiFallback: {
-            disableDotRule: true,
-        }
-    },
-    target: "web",
-    plugins: [
-        new HotModuleReplacementPlugin(),
-        new ReactRefreshWebpackPlugin(),
-        new webpack.DefinePlugin({
-            NODE_ENV: JSON.stringify('development'),
-        }),
-    ],
+    // devServer: {
+    //     port: 3000,
+    //     hot: true,
+    //     historyApiFallback: {
+    //         disableDotRule: true,
+    //     },
+    //     allowedHosts: "example.com",
+    // },
+    // target: "web",
+    // plugins: [
+    //     new HotModuleReplacementPlugin(),
+    //     new ReactRefreshWebpackPlugin(),
+    //     new webpack.DefinePlugin({
+    //         NODE_ENV: JSON.stringify('development'),
+    //     }),
+    // ],
     devtool: "eval-source-map",
     module: {
         rules: [
