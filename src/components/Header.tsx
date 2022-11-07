@@ -9,7 +9,6 @@ interface HeaderInterface {
 
 const Header: React.FC<HeaderInterface> = ({ openLogin, openRegister, username }) => {
     return (
-
         <Box display="flex" justifyContent="flex-end">
             {
                 username ?
