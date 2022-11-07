@@ -23,14 +23,21 @@ const appStore = new AppStore();
 
 const loadData = async () => {
   try {
+
+
+
+    //  const asd =  browser.cookies.getAll()
+
+    //   console.log('gookie is', asd)
+
+
+
     let bucketName, objectUrlBase, basePath, contents;
 
     console.log('using fake s3 data');
     bucketName = 'example-bucket';
     objectUrlBase = `https://${bucketName}.s3.amazonaws.com`;
     basePath = '/';
-
-    // const response = await axios.get('http://localhost:8080/', { withCredentials: true })
 
     const response = {
       data: [
