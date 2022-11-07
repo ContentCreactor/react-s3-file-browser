@@ -39,8 +39,6 @@ const loadData = async () => {
     objectUrlBase = `https://${bucketName}.s3.amazonaws.com`;
     basePath = '/';
 
-   // const response = await axios.get('http://localhost:8080/', { withCredentials: true })
-
     const response = {
       data: [
         { Key: 'foo1.file', Size: 1, LastModified: new Date('2000-01-01 00:00:00 +0000') },
@@ -61,16 +59,13 @@ const loadData = async () => {
 
     appStore.onLoaded({ root, directories, basePath });
 
-    // try {
-    //   const aute = await axios.get(`${API_URL}/auth`, { withCredentials: true })
-    //   return aute.data.username
+    const user = await axios.get(`${API_URL}/me`, { withCredentials: true })
 
-    // } catch (e) {
-    //   return ''
-    // }
+    return user.data.user.username
   } catch (error) {
-    console.error(error);
-    if (error instanceof s3ConfigDeterminator.CannotDetermineBucket) {
+    if (axios.isAxiosError(error)) {
+      return ''
+    } else if (error instanceof s3ConfigDeterminator.CannotDetermineBucket) {
       appStore.onError(error.message);
     } else {
       appStore.onError('Error loading data');
@@ -79,17 +74,15 @@ const loadData = async () => {
 }
 
 
-const user = loadData().then(res => {
+loadData().then(user => {
   ReactDOM.render(
     <App
       sortStore={sortStore}
       appStore={appStore}
       searchFilter={searchFilter}
       sortItems={sortItems}
-      user={res}
+      user={user}
     />,
     document.getElementById('root')
   );
-
-});
-
+})
